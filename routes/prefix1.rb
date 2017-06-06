@@ -1,4 +1,4 @@
-class App
+class MgrRoda
   route 'prefix1' do
   end
 end

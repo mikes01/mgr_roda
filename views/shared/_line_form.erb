@@ -1,0 +1,15 @@
+
+<% submit_label = (class_name == 'new' ? 'Create' : 'Update') %>
+<% method = (class_name == 'new' ? 'post' : 'patch') %>
+<% line = (class_name == 'new' ? Line.new : Line.first) %>
+
+<% form(line, method: method, action: request_path, id: "line_remote_form", class: "form-horizontal #{class_name}") do |f| %>
+  <%== f.input(:name, id: 'line-name') %>
+  <%== f.input(:coordinates, id: 'line-coordinates', type: :textarea) %>
+  <%== f.input(:road_type, id: 'line-road-type', type: :select, options: Line::ROAD_TYPES.keys.map { |k| [k, k] }) %>
+  <%== f.button(value: submit_label) %>
+
+  <% if class_name == 'edit' %>
+    <%== "<a href=#{request_path} id='delete_line' class='btn btn-danger'> Delete </a>" %>
+  <% end %>
+<% end %>

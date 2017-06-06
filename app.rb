@@ -23,6 +23,7 @@ class MgrRoda < Roda
   plugin :all_verbs
   plugin :assets, css: ['leaflet.css', 'main.css', 'select2.min.css', 'toastr.min.css'],
     js: ['wicket.js', 'checkboxes.js', 'leaflet.js', 'point_form.js', 'points.js',
+      'line_form.js', 'lines.js',
       'map.js', 'select2.full.min.js', 'toastr.min.js', 'wicket-leaflet.js', ]
 
   Unreloader.require('routes'){}

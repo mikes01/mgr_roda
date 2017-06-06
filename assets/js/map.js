@@ -27,11 +27,11 @@ $(document).ready(function() {
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
   loadPoints();
-  // loadLines();
+  loadLines();
   // loadPolygons();
 
   map.on('moveend', loadPoints);
-  // map.on('moveend', loadLines);
+  map.on('moveend', loadLines);
   // map.on('moveend', loadPolygons);
 
 });

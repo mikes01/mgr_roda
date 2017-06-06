@@ -14,6 +14,19 @@
         <button id="all-points", class="btn btn-default">All</button>
       </div>
       <div class="row">
+        <label for="lines">
+          Lines
+        </label>
+        <select class="form-control select2-input" id="line_types" multiple="multiple">
+          <% Line::ROAD_TYPES.each do |name, color| %>
+            <%== "<option style='background-color: #{color}' value='#{name}'>#{name}</option>" %>
+          <% end %>
+        </select>
+        </select>
+        <button id="clear-lines", class="btn btn-default">Clear</button>
+        <button id="all-lines", class="btn btn-default">All</button>
+      </div>
+      <div class="row">
         <br /><hr />
         <button id="refresh-map", class="btn btn-default">Refresh</button>
         <div class="btn-group">
@@ -41,6 +54,15 @@
         <div id="edit_point_remote_form_holder" class="col-md-12">
           <%== render "shared/_point_form",
             locals: { class_name: 'edit', request_path: "/points/#{Point.first.id}" } %>
+        </div>
+
+        <div id="line_remote_form_holder" class="col-md-12">
+          <%== render "shared/_line_form", locals: { class_name: 'new', request_path: '/lines' } %>
+        </div>
+
+        <div id="edit_line_remote_form_holder" class="col-md-12">
+          <%== render "shared/_line_form",
+            locals: { class_name: 'edit', request_path: "/lines/#{Line.first.id}" } %>
         </div>
       </div>
     </div>

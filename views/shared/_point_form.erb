@@ -1,0 +1,20 @@
+
+<% submit_label = (class_name == 'new' ? 'Create' : 'Update') %>
+<% method = (class_name == 'new' ? 'post' : 'patch') %>
+<% point = (class_name == 'new' ? Point.new : Point.first) %>
+
+<% form(point, method: method, action: request_path, id: "point_remote_form", class: "form-horizontal #{class_name}") do |f| %>
+  <%== f.input(:name, id: 'point-name') %>
+  <%== f.input(:coordinates, id: 'point-coordinates', type: :textarea) %>
+  <%== f.input(:object_type, id: 'point-object-type', type: :select, options: Point::OBJECT_TYPES.keys.map { |k| [k, k] }) %>
+  <%== f.input(:object_class, id: 'point-object-class', type: :select, options: Point::OBJECT_CLASSES.map { |k| [k, k] }) %>
+  <%== f.input(:terc, id: 'point-terc') %>
+  <%== f.input(:voivodeship, id: 'point-voivodeship') %>
+  <%== f.input(:county, id: 'point-county') %>
+  <%== f.input(:commune, id: 'point-commune') %>
+  <%== f.button(value: submit_label) %>
+
+  <% if class_name == 'edit' %>
+    <%== "<a href=#{request_path} id='delete_point' class='btn btn-danger'> Delete </a>" %>
+  <% end %>
+<% end %>

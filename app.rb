@@ -1,33 +1,37 @@
 require_relative 'models'
 
 require 'roda'
+require 'forme/bs3'
+require "forme/erb"
+
 
 class MgrRoda < Roda
+  include Forme::ERB::Helper
   opts[:unsupported_block_result] = :raise
   opts[:unsupported_matcher] = :raise
   opts[:verbatim_string_matcher] = true
-
-  plugin :default_headers,
-    'Content-Type'=>'text/html',
-    'Content-Security-Policy'=>"default-src 'self' https://oss.maxcdn.com/ https://maxcdn.bootstrapcdn.com https://ajax.googleapis.com",
-    #'Strict-Transport-Security'=>'max-age=16070400;', # Uncomment if only allowing https:// access
-    'X-Frame-Options'=>'deny',
-    'X-Content-Type-Options'=>'nosniff',
-    'X-XSS-Protection'=>'1; mode=block'
 
   use Rack::Session::Cookie,
     :key => '_MgrRoda_session',
     #:secure=>!TEST_MODE, # Uncomment if only allowing https:// access
     :secret=>File.read('.session_secret')
 
-  plugin :csrf
   plugin :render, :escape=>:erubi
   plugin :multi_route
+  plugin :indifferent_params
+  plugin :json, :classes=>[Array, Hash, Sequel::Model]
+  plugin :all_verbs
+  plugin :assets, css: ['leaflet.css', 'main.css', 'select2.min.css', 'toastr.min.css'],
+    js: ['wicket.js', 'checkboxes.js', 'leaflet.js', 'point_form.js', 'points.js',
+      'map.js', 'select2.full.min.js', 'toastr.min.js', 'wicket-leaflet.js', ]
 
   Unreloader.require('routes'){}
 
+  Forme.default_config = :bs3
+
   route do |r|
     r.multi_route
+    r.assets
 
     r.root do
       view 'index'

@@ -1,1 +1,60 @@
-<h1>Hello World!</h1>
+<div class="col-md-4">
+  <div class="row"> 
+    <div class="col-md-12" >
+      <div class="row">
+        <label for="points">
+          Points
+        </label>
+        <select class="form-control select2-input" id="point_types" multiple="multiple">
+          <% Point::OBJECT_TYPES.each do |name, color| %>
+            <%== "<option style='background-color: #{color}' value='#{name}'>#{name}</option>" %>
+          <% end %>
+        </select>
+        <button id="clear-points", class="btn btn-default">Clear</button>
+        <button id="all-points", class="btn btn-default">All</button>
+      </div>
+      <div class="row">
+        <br /><hr />
+        <button id="refresh-map", class="btn btn-default">Refresh</button>
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Add <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a id="point">Point</a></li>
+            <li><a id="line">Line</a></li>
+            <li><a id="polygon">Polygon</a></li>
+          </ul>
+        </div>
+        <hr />
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div id="form-holder">
+        <div id="point_remote_form_holder" class="col-md-12">
+          <%== render "shared/_point_form", locals: { class_name: 'new', request_path: '/points' } %>
+        </div>
+
+        <div id="edit_point_remote_form_holder" class="col-md-12">
+          <%== render "shared/_point_form",
+            locals: { class_name: 'edit', request_path: "/points/#{Point.first.id}" } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-8" id="maps">
+  <div class="row">
+    <b>Points count:</b> <span id="points_count">0</span>&nbsp&nbsp
+    <b>Lines count:</b> <span id="lines_count">0</span>&nbsp&nbsp
+    <b>Polygons count:</b> <span id="polygons_count">0</span>   
+  </span>
+  <br />
+  <div id="mappage">
+    <div id="map"></div>
+  </div>
+</div>

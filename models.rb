@@ -18,6 +18,7 @@ end
 Unreloader.require('models'){|f| Sequel::Model.send(:camelize, File.basename(f).sub(/\.rb\z/, ''))}
 Point.set_dataset Point.dataset.select_append{st_astext(:coordinates).as(:coordinates_text)}
 Line.set_dataset Line.dataset.select_append{st_astext(:coordinates).as(:coordinates_text)}
+Polygon.set_dataset Polygon.dataset.select_append{st_astext(:coordinates).as(:coordinates_text)}
 
 if ENV['RACK_ENV'] == 'development'
   require 'logger'

@@ -28,11 +28,11 @@ $(document).ready(function() {
 
   loadPoints();
   loadLines();
-  // loadPolygons();
+  loadPolygons();
 
   map.on('moveend', loadPoints);
   map.on('moveend', loadLines);
-  // map.on('moveend', loadPolygons);
+  map.on('moveend', loadPolygons);
 
 });
 

@@ -10,7 +10,6 @@ loadLines = function() {
   parameters.road_types = lineTypes
   $.get("lines", { data: parameters },
     function (data) {
-      console.log(data)
       var lines = []
       data.forEach(function(line) {
         lines.push(wkt.read( line.coordinates_text ).toObject(

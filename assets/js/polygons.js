@@ -9,8 +9,7 @@ loadPolygons = function() {
   parameters = getMapBounds()
   parameters.unit_types = polygonType
   $.get("polygons", { data: parameters },
-    function (data) {
-      console.log(data);     
+    function (data) { 
       var polygons = []
       data.forEach(function(polygon) {
         polygons.push(wkt.read( polygon.coordinates_text ).toObject({
